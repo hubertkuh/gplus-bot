@@ -64,6 +64,7 @@ function login_data() {
     curl_setopt($ch, CURLOPT_COOKIEFILE, $GLOBALS['cookies']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
     $buf = utf8_decode(html_entity_decode(curl_exec($ch)));
     $buf = str_replace( '&amp;', '&', $buf ); // just in case any correctly encoded
@@ -106,6 +107,7 @@ function login($postdata) {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata[0]);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $buf = curl_exec($ch); #this is not the g+ home page, because the b**** doesn't redirect properly
     curl_close($ch);
     if ($GLOBALS['debug']) {
@@ -128,6 +130,7 @@ function update_profile_status() {
     curl_setopt($ch, CURLOPT_URL, 'https://m.google.com/app/plus/?v=compose&group=m1c&hideloc=1');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $buf = utf8_decode(html_entity_decode(str_replace('&', '', curl_exec($ch))));
     $header = curl_getinfo($ch);
     curl_close($ch);
@@ -159,6 +162,7 @@ function update_profile_status() {
     curl_setopt($ch, CURLOPT_REFERER, $baseurl . '?v=compose&group=m1c&group=b0&hideloc=1');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $buf = curl_exec($ch);
     $header = curl_getinfo($ch);
     curl_close($ch);
@@ -182,6 +186,7 @@ function update_page_status() {
     curl_setopt($ch, CURLOPT_URL, 'https://plus.google.com/u/0/b/' . $GLOBALS['pageid'] . '/');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $buf = utf8_decode(html_entity_decode(str_replace('&', '', curl_exec($ch))));
     curl_close($ch);
     if ($GLOBALS['debug']) {
@@ -202,6 +207,7 @@ function logout() {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/m/logout');
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $buf = curl_exec($ch);
     curl_close($ch);
     if ($GLOBALS['debug']) {
